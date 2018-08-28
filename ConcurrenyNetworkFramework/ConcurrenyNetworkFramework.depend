@@ -1,0 +1,53 @@
+# depslib dependency file v1.0
+1446667744 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\main.cpp
+	<iostream>
+
+1535419792 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\buffer.cpp
+	"Buffer.h"
+
+1535419792 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\buffer.h
+
+1535442510 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\clientbase.cpp
+	"ClientBase.h"
+	<iostream>
+
+1535442441 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\clientbase.h
+
+1535420361 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\epoll.cpp
+	"Epoll.h"
+	<Common.h>
+
+1535441957 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\epoll.h
+
+1535442479 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\common.h
+	<errno.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<sys/types.h>
+	<sys/time.h>
+	<unistd.h>
+	<iostream>
+	<vector>
+	<string>
+	<list>
+	<map>
+	<algorithm>
+	<future>
+	<exception>
+	<atomic>
+	<assert.h>
+	<queue>
+	<numeric>
+	<thread>
+
+1535419684 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\event.cpp
+	"Event.h"
+
+1535419684 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\event.h
+
+1535419840 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\eventinternal.cpp
+	"EventInternal.h"
+
+1535444020 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\eventinternal.h
+
