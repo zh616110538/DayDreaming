@@ -1,7 +1,11 @@
 #ifndef CLIENTBASE_H
 #define CLIENTBASE_H
 
-
+#include <queue>
+#include <memory>
+#include <vector>
+#include <iostream>
+#include <future>
 class ClientBase
 {
     public:
@@ -12,20 +16,28 @@ class ClientBase
         ClientBase();
         virtual ~ClientBase();
         virtual void readCallBack(){}
-        virtual void writeCallBack(){}
+        //virtual void writeCallBack(){}
         virtual void errorCallBack(){}
         void settype(int);
         void gettype();
+        int getfd();
+        std::future<void> gettask();
+        void pushread(std::shared_ptr<unsigned char>,size_t);
+        void pushread(std::vector<unsigned char> &);
+        std::vector<unsigned char> popread(size_t);
     protected:
-
     private:
         int type;
-        std::queue<u_char> readBuffer;
-        std::queue<u_char> writeBuffer;
-        void pushread(std::shared_ptr<u_char> );
-        void popread(std::shared_ptr<u_char>);
-        void pushwrite(std::shared_ptr<u_char>);
-        void popwrite(std::shared_ptr<u_char>);
+        int fd;
+        std::queue<unsigned char> readBuffer;
+        //std::queue<unsigned char> writeBuffer;
+        /*
+        void pushread(std::shared_ptr<unsigned char>,size_t);
+        void pushread(std::vector<unsigned char>);
+        std::vector<unsigned char> popread(size_t);
+        */
+        //void pushwrite(std::shared_ptr<unsigned char>);
+        //void popwrite(std::shared_ptr<unsigned char>);
 };
 
 #endif // CLIENTBASE_H

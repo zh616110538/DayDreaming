@@ -1,6 +1,9 @@
 #ifndef EVENTINTERNAL_H
 #define EVENTINTERNAL_H
 
+#include "ClientBase.h"
+#include <map>
+#include <atomic>
 
 class EventInternal
 {
@@ -13,11 +16,10 @@ class EventInternal
     private:
         struct node
         {
-
             ClientBase *cli;
-            std::atomic_flag isCalling;
+            //std::atomic_flag isCalling;
         };
-        std::map<int,node>
+        std::map<int,node> v;
 };
 
 #endif // EVENTINTERNAL_H

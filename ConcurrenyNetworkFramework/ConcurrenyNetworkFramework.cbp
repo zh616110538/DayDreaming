@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,20 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Buffer.h" />
+		<Unit filename="include/ClientBase.h" />
+		<Unit filename="include/Common.h" />
+		<Unit filename="include/Epoll.h" />
+		<Unit filename="include/Event.h" />
+		<Unit filename="include/EventInternal.h" />
+		<Unit filename="include/WorkThread.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Buffer.cpp" />
+		<Unit filename="src/ClientBase.cpp" />
+		<Unit filename="src/Epoll.cpp" />
+		<Unit filename="src/Event.cpp" />
+		<Unit filename="src/EventInternal.cpp" />
+		<Unit filename="src/WorkThread.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

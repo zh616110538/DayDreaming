@@ -1,17 +1,25 @@
 # depslib dependency file v1.0
-1446667744 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\main.cpp
+1535522636 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\main.cpp
+	<ClientBase.h>
 	<iostream>
+	<memory>
+	<memory.h>
 
 1535419792 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\buffer.cpp
 	"Buffer.h"
 
 1535419792 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\buffer.h
 
-1535442510 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\clientbase.cpp
+1535522500 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\clientbase.cpp
 	"ClientBase.h"
 	<iostream>
 
-1535442441 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\clientbase.h
+1535528123 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\clientbase.h
+	<queue>
+	<memory>
+	<vector>
+	<iostream>
+	<future>
 
 1535420361 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\epoll.cpp
 	"Epoll.h"
@@ -49,5 +57,13 @@
 1535419840 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\eventinternal.cpp
 	"EventInternal.h"
 
-1535444020 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\eventinternal.h
+1535527795 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\eventinternal.h
+	"ClientBase.h"
+	<map>
+	<atomic>
+
+1535506326 source:c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\src\workthread.cpp
+	"WorkThread.h"
+
+1535506326 c:\users\÷Ï∫∆\desktop\daydreaming\concurrenynetworkframework\include\workthread.h
 
