@@ -577,6 +577,7 @@ int main1(int argc, char *argv[])
 
 int main(int argc,char *argv[])
 {
+	std::ios::sync_with_stdio(false);
 	int sfd, s;
 
 	if (argc != 2)

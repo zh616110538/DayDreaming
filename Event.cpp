@@ -1,5 +1,5 @@
 #include "Event.h"
-
+#include <iostream>
 Event::Event()
 {
 }
@@ -52,6 +52,7 @@ void Event::dispatch()
 						const size_t readsize = 4096;
 						u_char *buf = fds.at(it->getfd())->buf.malloc(readsize);
 						count = read(it->getfd(), buf, readsize);
+						//std::cout << "recv count = " << count << std::endl;
 						if (count == -1)
 						{
 							/* If errno == EAGAIN, that means we have read all

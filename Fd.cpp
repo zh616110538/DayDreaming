@@ -86,9 +86,42 @@ void SocketFd::doread(Event &ev)
 
 void ClientFd::doread(Event &ev)
 {
-	size_t n = buf.size();
-	send(getfd(), buf.read(n), n, 0);
-	buf.free();
+	static size_t sss = 0;
+	++sss;
+	while (buf.size() >= 4)
+	{
+		auto p = buf.read(4);
+		short protocol = *reinterpret_cast<short *>(p);
+		short size = *reinterpret_cast<short *>(p + 2);
+		assert(protocol == -1);
+		assert(size == 12);
+		if (buf.size() < 4 + size)
+			break;
+		buf.free();
+		p = buf.read(size);
+		int type = *reinterpret_cast<int *>(p);
+		long data = *reinterpret_cast<long *>(p + 4);
+		assert(type == 1);
+		buf.free();
+	}
+	//while (buf.size() >= 4) {
+	//	auto p = buf.read(4);
+	//	short protocol = *reinterpret_cast<short *>(p);
+	//	short size = *reinterpret_cast<short *>(p + 2);
+	//	assert(protocol == 0);
+	//	assert(size == 8);
+	//	if (buf.size() < size + 4) {
+	//		cout << "<<<<" << endl;
+	//		break;
+	//	}
+	//	buf.free();
+	//	p = buf.read(size);
+	//	int type = *reinterpret_cast<int *>(p);
+	//	assert(type == 1);
+	//	int data = *reinterpret_cast<int *>(p + 4);
+	//	//cout << "type = "<<type <<" , data = "<< data << endl;
+	//	buf.free();
+	//}
 }
 
 void ClientFd::dowrite()

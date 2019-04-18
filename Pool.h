@@ -4,7 +4,7 @@
 #include <thread>
 #include <mutex>
 #include <assert.h>
-
+#include <iostream>
 typedef unsigned char u_char;
 
 class Pool
@@ -111,6 +111,24 @@ public:
 		}
 		return it->p + it->start;
 	}
+	u_char* get(size_t shift)
+	{
+		if (allocsize == 0 || shift >= allocsize)throw "No data";
+		auto it = l.begin();
+		while (it->start == it->end)
+		{
+			it->start = it->end = 0;
+			l.push_back(std::move(*it));
+			it = l.erase(it);
+		}
+		for (; it != l.end(); ++it)
+		{
+			if (it->p + it->start + shift < it->p + it->end)
+				break;
+			shift -= it->end - it->start;
+		}
+		return it->p + it->start + shift;
+	}
 	void shrink(size_t n)
 	{
 		if (n > allocsize)throw "shrink error";
@@ -151,6 +169,7 @@ private:
 
 	void resize()
 	{
+		std::cout << "resize()" << std::endl;
 		std::unique_lock<std::mutex> lk(m);
 		size_t newsize = totalsize * 2;
 		u_char *tmp = new u_char[newsize];
@@ -161,25 +180,23 @@ private:
 		{
 			ltmp.push_back(Node(tmp + i * chunk));
 		}
-		std::list<Node>::iterator itl = l.begin();
-		std::list<Node>::iterator ittmp = ltmp.begin();
-		do
+		size_t pos = 0;
+		for (std::list<Node>::iterator itl = l.begin(); itl != l.end(); ++itl)
 		{
-			long long diff = static_cast<long long>((ittmp->end + itl->end - itl->start) - chunk);
 			for (size_t i = itl->start, j = 0; i < itl->end; ++i, ++j)
 			{
-				*(ittmp->p + ittmp->start + j) = *(itl->p + i);
+				tmp[j + pos] = *(itl->p + i);
 			}
-			if (diff >= 0)
-			{
-				ittmp->end = chunk;
-				(++ittmp)->end = diff;
-			}
-			else
-			{
-				ittmp->end = static_cast<long long>(chunk) + diff;
-			}
-		} while (itl++ != cur);
+			pos += itl->end - itl->start;
+		}
+		auto ittmp = ltmp.begin();
+		for (size_t i = 0; i < allocsize / chunk; ++i,++ittmp)
+		{
+			ittmp->end = chunk;
+		}
+		size_t remainder = allocsize % chunk;
+		if (remainder != 0)
+			ittmp->end = remainder;
 		cur = ittmp;
 		totalsize = newsize;
 		l = std::move(ltmp);

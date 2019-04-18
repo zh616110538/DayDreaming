@@ -2,13 +2,14 @@
 
 #include <memory>
 #include <assert.h>
+#include <list>
 #include "Pool.h"
 
 class PoolBuffer
 {
 public:
 	enum { READWAIT, READALL };
-	explicit PoolBuffer():lastp(nullptr), lastn(0),data(4096*16*2,4096*16) {}
+	explicit PoolBuffer():lastn(0),data(4096*16*2,4096*16) {}
 	explicit PoolBuffer(const PoolBuffer &other) = delete;
 	PoolBuffer& operator=(const PoolBuffer &other) = delete;
 	u_char* malloc(size_t n) { return data.malloc(n); }
@@ -17,6 +18,7 @@ public:
 	size_t size() { return data.size(); }
 	u_char* const read(size_t n)
 	{
+		if (data.size() < n)return nullptr;
 		size_t lenth = data.isconsequent(n);
 		lastn = n;
 		if (lenth == 0)
@@ -25,29 +27,32 @@ public:
 		}
 		else
 		{
-			lastp = new u_char[n];
+			u_char *lastp = new u_char[n];
 			size_t i = 0;
 			for (; i < lenth; ++i)
 				lastp[i] = data.get()[i];
-			data.free(lenth);
 			size_t j = i;
 			for (; i < n; ++i)
-				lastp[i] = data.get()[i-j];
+				lastp[i] = data.get(lenth)[i-j];
+			lp.push_back(lastp);
 			return lastp;
 		}
 	}
 	void allocreturn(size_t n){ data.shrink(n); }
 	void free()
 	{
-		if (lastp != nullptr) {
-			delete lastp;
-			lastp = nullptr;
+		if (lp.size() != 0) {
+			for (auto it = lp.begin(); it != lp.end(); ++it)
+			{
+				delete [] *it;
+			}
+			lp = std::list<u_char *>();
 		}
 		data.free(lastn);
 		lastn = 0;
 	}
 private:
-	u_char *lastp;
+	std::list<u_char *> lp;
 	size_t lastn;
 	Pool data;
 };
